@@ -44,7 +44,9 @@ userRouter.route('/')
 
 .post(async (req, res, next) => {
     const nextSeq = await client.db("heliverse").collection("users").findOneAndUpdate(
-        { id: "userId" }, {$inc: {seqId : 1}}
+        { seqId: { $exists: true } }, 
+        { $inc: { seqId: 1 } },
+        { returnOriginal: false }
     );
     let user = req.body;
     user.id = nextSeq.seqId;
