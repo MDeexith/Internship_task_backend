@@ -10,14 +10,15 @@ const client = db.client;
 
 const allowedUrls = ["http://localhost:3000", "https://heliverse-frontend-lfxx.vercel.app"];
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (allowedUrls.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
+    origin: (origin, callback) => {
+      if (allowedUrls.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error())
+      }
     },
-};
+    credentials: true
+  }
 
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
